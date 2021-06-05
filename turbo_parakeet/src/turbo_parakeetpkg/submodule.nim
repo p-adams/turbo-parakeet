@@ -3,4 +3,8 @@
 # remove this file altogether. You may create additional modules alongside
 # this file as required.
 
-proc getWelcomeMessage*(): string = "Hello, World!"
+# run: nimble run -- scan dir="./"
+import os
+proc getWelcomeMessage*(): string = 
+    echo commandLineParams()
+    result = "Hello, World!"

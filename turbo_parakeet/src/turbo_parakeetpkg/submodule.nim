@@ -6,5 +6,8 @@
 # run: nimble run -- scan dir="./"
 import os
 proc getWelcomeMessage*(): string = 
-    echo commandLineParams()
+    # hardcode single project path for dev
+    setCurrentDir("../../../temp/react-app")
+    echo getCurrentDir()
+    #echo commandLineParams()
     result = "Hello, World!"

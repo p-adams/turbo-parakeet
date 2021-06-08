@@ -8,6 +8,11 @@ import os
 proc getWelcomeMessage*(): string = 
     # hardcode single project path for dev
     setCurrentDir("../../../temp/react-app")
-    echo getCurrentDir()
+    let rootDir = getCurrentDir()
+    for kind, path in walkDir(rootDir):
+        let pathSplit = splitPath(path)
+        if pathSplit.tail == "package.json":
+            echo "JS project"
+            return
     #echo commandLineParams()
     result = "Hello, World!"

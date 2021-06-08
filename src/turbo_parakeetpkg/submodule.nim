@@ -5,7 +5,7 @@
 
 # run: nimble run -- scan dir="./"
 import os
-proc getWelcomeMessage*(): string = 
+proc scanProject*(): string = 
     #echo commandLineParams()
     # hardcode single project path for dev
     setCurrentDir("../../temp/react-app")

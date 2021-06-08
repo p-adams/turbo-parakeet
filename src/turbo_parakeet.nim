@@ -4,4 +4,4 @@
 import turbo_parakeetpkg/submodule
 
 when isMainModule:
-  echo(getWelcomeMessage())
+  echo(scanProject())

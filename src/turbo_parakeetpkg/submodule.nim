@@ -6,6 +6,7 @@
 # run: nimble run -- scan dir="./"
 import os
 proc getWelcomeMessage*(): string = 
+    #echo commandLineParams()
     # hardcode single project path for dev
     setCurrentDir("../../temp/react-app")
     let rootDir = getCurrentDir()
@@ -14,5 +15,4 @@ proc getWelcomeMessage*(): string =
         if pathSplit.tail == "package.json":
             echo "JS project"
             return
-    #echo commandLineParams()
     result = "Hello, World!"

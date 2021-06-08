@@ -7,7 +7,7 @@
 import os
 proc getWelcomeMessage*(): string = 
     # hardcode single project path for dev
-    setCurrentDir("../../../temp/react-app")
+    setCurrentDir("../../temp/react-app")
     let rootDir = getCurrentDir()
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)

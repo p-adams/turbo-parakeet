@@ -8,12 +8,13 @@ import os
 proc scanProject*(): string = 
     #echo commandLineParams()
     # hardcode single project path for dev
-    setCurrentDir("../../temp/react-app")
+    setCurrentDir("../../temp")
     let rootDir = getCurrentDir()
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
             let packageJson = readFile(pathSplit.tail)
+            writeFile("output.md", packageJson)
             result = packageJson
             return result
     result = "package.json not found."

@@ -13,6 +13,7 @@ proc scanProject*(): string =
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
-            result = "JS project"
-            return
+            let packageJson = readFile(pathSplit.tail)
+            result = packageJson
+            return result
     result = "package.json not found."

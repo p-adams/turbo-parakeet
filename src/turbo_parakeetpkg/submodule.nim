@@ -8,7 +8,7 @@ import os
 proc scanProject*(): string = 
     #echo commandLineParams()
     # hardcode single project path for dev
-    setCurrentDir("../../temp")
+    setCurrentDir("../../temp/react-app")
     let rootDir = getCurrentDir()
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)

@@ -10,6 +10,9 @@ proc scanProject*(): string =
     # hardcode single project path for dev
     setCurrentDir("../../temp/react-app")
     let rootDir = getCurrentDir()
+    if fileExists("package.json") == false:
+        result = "package.json not found"
+        return
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
@@ -17,4 +20,3 @@ proc scanProject*(): string =
             writeFile("output.md", packageJson)
             result = packageJson
             return result
-    result = "package.json not found."

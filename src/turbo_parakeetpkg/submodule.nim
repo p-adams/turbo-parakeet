@@ -17,6 +17,8 @@ proc scanProject*(): string =
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
             let packageJson = readFile(pathSplit.tail)
+            createDir(".turbo_parakeet")
+            setCurrentDir(".turbo_parakeet")
             writeFile("output.md", packageJson)
             result = packageJson
             return result

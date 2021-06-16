@@ -6,6 +6,14 @@
 # run: nimble run -- scan dir="./"
 import os
 import json
+
+proc buildReadMe(packageJsonObj: JsonNode): string =
+    let projectName = packageJsonObj["name"].getStr()
+    result = projectName
+
+
+
+
 proc scanProject*(): string = 
     #echo commandLineParams()
     # hardcode single project path for dev
@@ -17,11 +25,10 @@ proc scanProject*(): string =
     for kind, path in walkDir(rootDir):
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
-            let packageJson = readFile(pathSplit.tail)
-            let parsedPackageJson = parseJson(packageJson)
+            let parsedPackageJson = parseFile(pathSplit.tail)
             createDir(".turbo_parakeet")
             setCurrentDir(".turbo_parakeet")
-            let projectName = parsedPackageJson["name"].getStr()
-            writeFile("output.md", projectName)
+            let readMe = buildReadMe(parsedPackageJson)
+            writeFile("README.md", readMe)
             result = "View .turbo_parakeet directory in project root to view output."
             return result

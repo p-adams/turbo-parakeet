@@ -26,9 +26,9 @@ proc scanProject*(): string =
         let pathSplit = splitPath(path)
         if pathSplit.tail == "package.json":
             let parsedPackageJson = parseFile(pathSplit.tail)
+            let readMe = buildReadMe(parsedPackageJson)
             createDir(".turbo_parakeet")
             setCurrentDir(".turbo_parakeet")
-            let readMe = buildReadMe(parsedPackageJson)
             writeFile("README.md", readMe)
             result = "View .turbo_parakeet directory in project root to view output."
             return result

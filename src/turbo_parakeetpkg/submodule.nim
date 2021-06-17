@@ -6,10 +6,19 @@
 # run: nimble run -- scan dir="./"
 import os
 import json
+import strformat
+import strutils
 
 proc buildReadMe(packageJsonObj: JsonNode): string =
-    let projectName = packageJsonObj["name"].getStr()
-    result = projectName
+    let name = packageJsonObj["name"].getStr()
+    let version = packageJsonObj["version"].getStr()
+    let readMe = &"""
+    ## Project
+        {name}
+    ### Version
+        {version}
+    """
+    result = readMe.unindent
 
 
 

@@ -1,3 +1,4 @@
+import * as semver from "https://deno.land/x/semver/mod.ts";
 /* 
 proc buildReadMe(packageJsonObj: JsonNode): string =
     let name = packageJsonObj["name"].getStr()
@@ -51,7 +52,8 @@ The "version" field must be in the form x.x.x and follow the semantic versioning
 export function isValidPackageJson(packageJson: PackageJsonData) {
   const containsAllowedChars = /^[a-z_-]+$/g;
   const hasValidName = containsAllowedChars.test(packageJson.name);
-  return hasValidName;
+  const hasValidVersion = semver.valid(packageJson.version);
+  return hasValidName && !!hasValidVersion;
 }
 export function buildReadmeFromPkgJson(_packageJson: PackageJsonData) {
   return "### Project name";
@@ -69,7 +71,10 @@ async function main() {
     return;
   } else {
     const pkgJson = JSON.parse(decoder.decode(result));
-    console.log(pkgJson);
+    if (!isValidPackageJson(pkgJson)) {
+      console.error("invalid package.json");
+      return;
+    }
   }
 }
-// main();
+main();

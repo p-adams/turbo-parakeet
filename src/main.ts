@@ -35,4 +35,21 @@ proc scanProject*(): string =
 
 */
 
-function main() {}
+function _buildReadmeFromPkgJson() {}
+
+async function main() {
+  // hardcode single project path for dev
+  // TODO: get project path from Deno.args
+  Deno.chdir("../../temp/react-app");
+  const decoder = new TextDecoder("utf-8");
+  const result = await Deno.readFile("package.json").catch((err) => {
+    console.error(err.message);
+  });
+  if (!result) {
+    return;
+  } else {
+    const pkgJson = JSON.parse(decoder.decode(result));
+    console.log(pkgJson);
+  }
+}
+main();

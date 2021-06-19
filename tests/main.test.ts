@@ -3,6 +3,9 @@ import { buildReadmeFromPkgJson } from "../src/main.ts";
 Deno.test(
   "#buildReadmeFromPkgJson creates markdown headings for selected package.json keys",
   () => {
-    assertEquals(buildReadmeFromPkgJson(), "###");
+    const packageJson = {
+      name: "react-app",
+    };
+    assertEquals(buildReadmeFromPkgJson(packageJson), "### Project name");
   }
 );

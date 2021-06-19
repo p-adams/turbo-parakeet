@@ -35,8 +35,11 @@ proc scanProject*(): string =
 
 */
 
-export function buildReadmeFromPkgJson() {
-  return "###";
+export interface PackageJsonData {
+  name: string;
+}
+export function buildReadmeFromPkgJson(_packageJson: PackageJsonData) {
+  return "### Project name";
 }
 
 async function main() {

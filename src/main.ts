@@ -49,8 +49,8 @@ The "version" field must be in the form x.x.x and follow the semantic versioning
  */
 
 export function isValidPackageJson(packageJson: PackageJsonData) {
-  const containsLowerCase = /^[a-z_-]+$/g;
-  const hasValidName = containsLowerCase.test(packageJson.name);
+  const containsAllowedChars = /^[a-z_-]+$/g;
+  const hasValidName = containsAllowedChars.test(packageJson.name);
   return hasValidName;
 }
 export function buildReadmeFromPkgJson(_packageJson: PackageJsonData) {

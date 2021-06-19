@@ -35,7 +35,9 @@ proc scanProject*(): string =
 
 */
 
-function _buildReadmeFromPkgJson() {}
+export function buildReadmeFromPkgJson() {
+  return "###";
+}
 
 async function main() {
   // hardcode single project path for dev
@@ -52,4 +54,4 @@ async function main() {
     console.log(pkgJson);
   }
 }
-main();
+// main();

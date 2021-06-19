@@ -37,6 +37,21 @@ proc scanProject*(): string =
 
 export interface PackageJsonData {
   name: string;
+  version: string;
+}
+/*
+A package.json file must contain "name" and "version" fields.
+
+The "name" field contains your package's name, and must be lowercase and one word, and may contain hyphens and underscores.
+
+The "version" field must be in the form x.x.x and follow the semantic versioning guidelines.
+
+ */
+
+export function isValidPackageJson(packageJson: PackageJsonData) {
+  const containsLowerCase = /^[a-z_-]+$/g;
+  const hasValidName = containsLowerCase.test(packageJson.name);
+  return hasValidName;
 }
 export function buildReadmeFromPkgJson(_packageJson: PackageJsonData) {
   return "### Project name";

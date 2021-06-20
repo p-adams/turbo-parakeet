@@ -1,5 +1,16 @@
 import { assertEquals } from "https://deno.land/std@0.99.0/testing/asserts.ts";
-import { isValidPackageJson } from "../src/main.ts";
+import { buildReadmeFromPkgJson, isValidPackageJson } from "../src/main.ts";
+
+Deno.test(
+  "#buildReadmeFromPkgJson returns main markdown heading with project name",
+  () => {
+    const packageJson = {
+      name: "react-app",
+      version: "0.1.2",
+    };
+    assertEquals(buildReadmeFromPkgJson(packageJson), "# react-app");
+  }
+);
 
 Deno.test(
   "#isValidPackageJson validates that package.json has correct name field",

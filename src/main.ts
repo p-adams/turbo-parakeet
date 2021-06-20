@@ -55,8 +55,8 @@ export function isValidPackageJson(packageJson: PackageJsonData) {
   const hasValidVersion = semver.valid(packageJson.version);
   return hasValidName && !!hasValidVersion;
 }
-export function buildReadmeFromPkgJson(_packageJson: PackageJsonData) {
-  return "### Project name";
+export function buildReadmeFromPkgJson(packageJson: PackageJsonData) {
+  return `# ${packageJson.name}`;
 }
 
 async function main() {

@@ -8,7 +8,10 @@ Deno.test(
       name: "react-app",
       version: "0.1.2",
     };
-    assertEquals(buildReadmeFromPkgJson(packageJson), "# react-app");
+    assertEquals(
+      buildReadmeFromPkgJson(packageJson).includes("# react-app"),
+      true
+    );
   }
 );
 

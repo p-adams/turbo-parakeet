@@ -3,6 +3,22 @@ import * as semver from "https://deno.land/x/semver/mod.ts";
 export interface PackageJsonData {
   name: string;
   version: string;
+  description?: string;
+  main?: string;
+  script?: {
+    test?: string;
+  };
+  repository?: {
+    type?: string;
+    url?: string;
+  };
+  keywords?: string[];
+  author?: string;
+  license?: string;
+  bugs?: {
+    url?: string;
+  };
+  homepage?: string;
 }
 /*
 A package.json file must contain "name" and "version" fields.

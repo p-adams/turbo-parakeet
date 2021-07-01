@@ -42,6 +42,7 @@ export function buildReadmeFromPkgJson(packageJson: PackageJsonData) {
   }
   return `
   # ${packageJson.name}
+  ${packageJson.description ? packageJson.description : ""}
   ## Get started
   ${supportedScripts}
   `;

@@ -63,7 +63,6 @@ async function main() {
       console.error("invalid package.json");
       return;
     }
-    // buildReadmeFromPkgJson(pkgJson)
 
     // write README.md to generated output dir
     Deno.mkdir(".turbo_parakeet")

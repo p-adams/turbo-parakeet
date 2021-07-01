@@ -36,9 +36,9 @@ export function isValidPackageJson(packageJson: PackageJsonData) {
   return hasValidName && !!hasValidVersion;
 }
 export function buildReadmeFromPkgJson(packageJson: PackageJsonData) {
-  let supportedScripts = ''
-  for(let script in packageJson.scripts) {
-    supportedScripts += ` \`\`\`\n npm run ${script}\n\`\`\`\n`
+  let supportedScripts = "";
+  for (const script in packageJson.scripts) {
+    supportedScripts += ` \`\`\`\n npm run ${script}\n\`\`\`\n`;
   }
   return `
   # ${packageJson.name}
@@ -46,7 +46,6 @@ export function buildReadmeFromPkgJson(packageJson: PackageJsonData) {
   ${supportedScripts}
   `;
 }
-
 
 async function main() {
   // hardcode single project path for dev
@@ -67,7 +66,7 @@ async function main() {
     // buildReadmeFromPkgJson(pkgJson)
 
     // write README.md to generated output dir
-   Deno.mkdir(".turbo_parakeet")
+    Deno.mkdir(".turbo_parakeet")
       .then(() => {
         Deno.chdir(".turbo_parakeet");
         Deno.writeTextFile("./README.md", buildReadmeFromPkgJson(pkgJson))

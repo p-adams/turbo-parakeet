@@ -61,6 +61,7 @@ export function buildReadmeFromPkgJson(
   # ${packageJson.name}
   ${packageJson.description ? packageJson.description : ""}
   ## Get started
+  \`\`\`${dependencyManagement} install\`\`\`
   ${supportedScripts}
   ${packageJson.license ? `### License\n ${packageJson.license}` : ""}
   `;

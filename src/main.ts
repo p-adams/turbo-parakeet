@@ -1,4 +1,6 @@
 import * as semver from "https://deno.land/x/semver/mod.ts";
+import { exists, ensureFile } from "https://deno.land/std@0.100.0/fs/mod.ts";
+type DependencyManagement = "npm" | "yarn";
 
 export interface PackageJsonData {
   name: string;
@@ -29,22 +31,38 @@ The "version" field must be in the form x.x.x and follow the semantic versioning
 
  */
 
+export async function getDependencyManagementType(): Promise<DependencyManagement> {
+  const isNpm = await exists("package-lock.json");
+  const isYarn = await exists("yarn.lock");
+  if (isNpm) {
+    return "npm";
+  } else if (isYarn) {
+    return "yarn";
+  } else {
+    throw new Error("no depencency management found");
+  }
+}
+
 export function isValidPackageJson(packageJson: PackageJsonData) {
   const containsAllowedChars = /^[a-z_-]+$/g;
   const hasValidName = containsAllowedChars.test(packageJson.name);
   const hasValidVersion = semver.valid(packageJson.version);
   return hasValidName && !!hasValidVersion;
 }
-export function buildReadmeFromPkgJson(packageJson: PackageJsonData) {
+export function buildReadmeFromPkgJson(
+  packageJson: PackageJsonData,
+  dependencyManagement: DependencyManagement = "npm"
+) {
   let supportedScripts = "";
   for (const script in packageJson.scripts) {
-    supportedScripts += ` \`\`\`\n npm run ${script}\n\`\`\`\n`;
+    supportedScripts += ` \`\`\`\n ${dependencyManagement} run ${script}\n\`\`\`\n`;
   }
   return `
   # ${packageJson.name}
   ${packageJson.description ? packageJson.description : ""}
   ## Get started
   ${supportedScripts}
+  ${packageJson.license ? `### License\n ${packageJson.license}` : ""}
   `;
 }
 
@@ -65,11 +83,17 @@ async function main() {
       return;
     }
 
+    const depManagement = await getDependencyManagementType();
+
     // write README.md to generated output dir
-    Deno.mkdir(".turbo_parakeet")
+
+    Deno.mkdir(".turbo_parakeet", { recursive: true })
       .then(() => {
         Deno.chdir(".turbo_parakeet");
-        Deno.writeTextFile("./README.md", buildReadmeFromPkgJson(pkgJson))
+        Deno.writeTextFile(
+          "./README.md",
+          buildReadmeFromPkgJson(pkgJson, depManagement)
+        )
           .then(() => {
             console.log(
               "View .turbo_parakeet directory in project root to view output."
